@@ -1776,6 +1776,12 @@
       "origin": "https://${GITHUB_TOKEN}@${GITHUB_API}"
     },
     {
+      "//": "used to get given manifest file",
+      "method": "GET",
+      "path": "/repos/:owner/:repo/git/blobs/:sha",
+      "origin": "https://${GITHUB_TOKEN}@${GITHUB_API}"
+    },
+    {
       "//": "query graphql",
       "method": "POST",
       "path": "/graphql",
@@ -1790,6 +1796,11 @@
           "//": "query to find open snyk pull requests, allowing auto dependency upgrade pull requests to open no more than a limited amount of pull requests",
           "path": "query",
           "regex": "{\\s*search\\(\\s*query: \"repo:[a-zA-Z0-9-_.]+\\/[a-zA-Z0-9-_.]+ is:pr state:[a-zA-Z]+ head:snyk-\\s*(is:[a-zA-Z]+)?\", type: ISSUE, last: [0-9]+\\s*\\)\\s*{\\s*edges {\\s*node {\\s*\\.\\.\\. on PullRequest {\\s*url\\s*title\\s*createdAt\\s*headRefName\\s*state\\s*mergeable\\s*body\\s*repository\\s*{\\s*name\\s*}\\s*}\\s*}\\s*}\\s*}\\s*rateLimit\\s*{\\s*limit\\s*cost\\s*remaining\\s*resetAt\\s*}\\s*}\\s*"
+        },
+        {
+          "//": "query to get file SHA",
+          "path": "query",
+          "regex": "{\\s*repository\\(owner:\\s*\\\"[a-zA-Z0-9-_.]+\\\",\\s*name:\\s*\\\"[a-zA-Z0-9-_.]+\\\"\\)\\s*{\\s*object\\(expression:\\s*\"[a-zA-Z0-9-_.]+:[a-zA-Z0-9-_.]+\\\"\\)\\s+{\\s*\\.\\.\\.\\s*on\\s*Blob\\s*{(\\\\n\\s*)oid(\\\\n\\s*)}(\\\\n\\s*)}(\\\\n\\s*)}(\\\\n\\s*)}"
         }
       ]
     }
